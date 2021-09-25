@@ -180,8 +180,46 @@ public class SwingLoginExample {
         });
         panel.add(geographicText);
 
-       picLabel= new JLabel(new ImageIcon("/Users/lijiaqi/Desktop/java/lab1/untitled/1401.jpg"));
-        picLabel.setBounds(10,140,80,80);
+        JLabel internetLabel = new JLabel("Internet Protocol Addresses:");
+        internetLabel.setBounds(10,140,120,25);
+        panel.add(internetLabel);
+
+        JTextField internetText = new JTextField(20);
+        internetText.setBounds(200,140,165,25);
+        internetText.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+
+                if(initFlag){
+                    initFlag = false;
+                    return;
+                }
+                String check_2="([1-9]|[1-9]\\d|1\\d{2}|2[0-4]\\d|25[0-5])(\\.(\\d|[1-9]\\d|1\\d{2}|2[0-4]\\d|25[0-5])){3}";
+                Pattern re_2=Pattern.compile(check_2);
+                String internet=internetText.getText();
+                Matcher matcher=re_2.matcher(internet);
+                boolean isMatch= matcher.matches();
+                if (!isMatch){
+                    JOptionPane.showMessageDialog(panel,"???");
+                }
+                else{
+                    internetProtocolAddresses=internet;
+                }
+            }
+        });
+        panel.add(internetText);
+
+        JLabel personLabel = new JLabel("personal images:");
+        personLabel.setBounds(10,170,120,25);
+        panel.add(personLabel);
+
+        picLabel= new JLabel(new ImageIcon("/Users/lijiaqi/Desktop/java/lab1/untitled/1401.jpg"));
+        picLabel.setBounds(200,170,80,80);
         panel.add(picLabel);
 
         picLabel.addMouseListener(new MouseAdapter() {
@@ -197,7 +235,7 @@ public class SwingLoginExample {
         });
 
         JButton loginButton = new JButton("login");
-        loginButton.setBounds(10, 230, 130, 25);
+        loginButton.setBounds(10, 260, 130, 25);
         loginButton.addActionListener(l->{
 
         });
