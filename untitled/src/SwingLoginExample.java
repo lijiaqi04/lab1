@@ -37,6 +37,7 @@ public class SwingLoginExample {
     private static String internetProtocolAddresses;
     private static String anyUniqueIdentifyingNumberCharacteristicOrCode;
     private static  JLabel picLabel;
+    private static  JLabel identifierLabel;
     private static boolean initFlag = true;
 
     public static void main(String[] args) {
@@ -116,7 +117,7 @@ public class SwingLoginExample {
         panel.add(nameText);
 
         JLabel birthday = new JLabel("Birthday(layout:yy-mm-dd):");
-        birthday.setBounds(10,80,160,25);
+        birthday.setBounds(10,80,180,25);
         panel.add(birthday);
 
 
@@ -200,28 +201,53 @@ public class SwingLoginExample {
         });
         panel.add(internetText);
 
-        JLabel personLabel = new JLabel("personal images:");
-        personLabel.setBounds(10,170,120,25);
-        panel.add(personLabel);
 
-        picLabel= new JLabel(new ImageIcon("/Users/lijiaqi/Desktop/java/lab1/untitled/1401.jpg"));
-        picLabel.setBounds(200,170,80,80);
+        picLabel= new JLabel();
+        picLabel.setBounds(200,170,180,180);
         panel.add(picLabel);
 
-        picLabel.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                JFileChooser jf=new JFileChooser();
-                jf.setFileSelectionMode(JFileChooser.FILES_ONLY);
-                jf.showDialog(new JLabel(),"选择");
-                File file=jf.getSelectedFile();
-                picLabel.setIcon(new ImageIcon(file.getAbsolutePath()));
-                panel.add(picLabel);
-            }
+        JButton imagesButton = new JButton("personal images");
+        imagesButton.setBounds(10,170,120,25);
+        imagesButton.addActionListener(l->{
+            JFileChooser jf=new JFileChooser();
+            jf.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            jf.showDialog(new JLabel(),"选择");
+            File file=jf.getSelectedFile();
+            picLabel.setIcon(new ImageIcon(file.getAbsolutePath()));
+            panel.add(picLabel);
         });
+        panel.add(imagesButton);
+
+        identifierLabel= new JLabel();
+        identifierLabel.setBounds(20,390,180,180);
+        panel.add(identifierLabel);
+
+        JButton identifiersButton = new JButton("Biometric identifiers (i.e. retinal scan, fingerprints)");
+        identifiersButton.setBounds(10,370,420,25);
+        identifiersButton.addActionListener(l->{
+            JFileChooser jf=new JFileChooser();
+            jf.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            jf.showDialog(new JLabel(),"选择");
+            File file=jf.getSelectedFile();
+            identifierLabel.setIcon(new ImageIcon(file.getAbsolutePath()));
+            panel.add(identifierLabel);
+        });
+        panel.add(identifiersButton);
+
+//        picLabel.addMouseListener(new MouseAdapter() {
+//            @Override
+//            public void mouseClicked(MouseEvent e) {
+//                JFileChooser jf=new JFileChooser();
+//                jf.setFileSelectionMode(JFileChooser.FILES_ONLY);
+//                jf.showDialog(new JLabel(),"选择");
+//                File file=jf.getSelectedFile();
+//                picLabel.setIcon(new ImageIcon(file.getAbsolutePath()));
+//                panel.add(picLabel);
+//            }
+//        });
 
         JButton saveButton = new JButton("save");
-        saveButton.setBounds(10, 260, 130, 25);
+        saveButton.setBounds(10, 570, 130, 25);
         saveButton.addActionListener(l->{
             nameText.setText("");
             emailText.setText("");
@@ -232,7 +258,7 @@ public class SwingLoginExample {
         panel.add(saveButton);
 
         JButton showButton = new JButton("show");
-        showButton.setBounds(150, 260, 130, 25);
+        showButton.setBounds(150, 570, 130, 25);
         showButton.addActionListener(l->{
             emailText.setText(emailAddresses);
             nameText.setText(name);
