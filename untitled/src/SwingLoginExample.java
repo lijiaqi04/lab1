@@ -66,7 +66,6 @@ public class SwingLoginExample {
         emailText.addFocusListener(new FocusAdapter() {
             @Override
             public void focusLost(FocusEvent e) {
-
                 if (initFlag) {
                     initFlag = false;
                     return;
@@ -101,7 +100,17 @@ public class SwingLoginExample {
 
             @Override
             public void focusLost(FocusEvent e) {
-                name=nameText.getText();
+                String check_3="^[a-zA-Z]+\\s?[\\.·\\-()a-zA-Z]*[a-zA-Z]+$";
+                Pattern re_3=Pattern.compile(check_3);
+                String name_1=nameText.getText();
+                Matcher matcher=re_3.matcher(name_1);
+                boolean isMatch= matcher.matches();
+                if (!isMatch){
+                    JOptionPane.showMessageDialog(panel,"???");
+                }
+                else {
+                    name = name_1;
+                }
             }
         });
         panel.add(nameText);
