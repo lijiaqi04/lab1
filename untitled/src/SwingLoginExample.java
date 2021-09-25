@@ -36,15 +36,13 @@ public class SwingLoginExample {
     private static String LinkedIn;
     private static String internetProtocolAddresses;
     private static String anyUniqueIdentifyingNumberCharacteristicOrCode;
-    private static Icon personImage;
-    private static Icon geoCharacterize;
     private static  JLabel picLabel;
     private static boolean initFlag = true;
 
     public static void main(String[] args) {
-        JFrame frame = new JFrame("Login Example");
+        JFrame frame = new JFrame("personal files");
 
-        frame.setSize(550, 200);
+        frame.setSize(550, 400);
 
         JPanel panel = new JPanel();
 
@@ -79,7 +77,7 @@ public class SwingLoginExample {
                     return;
                 }
                 String check="\\w[-\\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\\.)+[A-Za-z]{2,14}";
-                Pattern re=Pattern.compile(check);
+                Pattern re = Pattern.compile(check);
                 String email=emailText.getText();
                 Matcher matcher=re.matcher(email);
                 boolean isMatch= matcher.matches();
@@ -87,7 +85,7 @@ public class SwingLoginExample {
                     JOptionPane.showMessageDialog(panel,"???");
                 }
                 else{
-                   emailAddresses=email;
+                   emailAddresses=emailText.getText();
                 }
             }
         });
@@ -158,27 +156,11 @@ public class SwingLoginExample {
 
             @Override
             public void focusLost(FocusEvent e) {
-                geographicData=nameText.getText();
+                geographicData=geographicText.getText();
             }
         });
         panel.add(geographicText);
 
-
-
-        JTextField socialText = new JTextField(20);
-        socialText.setBounds(200,110,165,25);
-        socialText.addFocusListener(new FocusListener() {
-            @Override
-            public void focusGained(FocusEvent e) {
-
-            }
-
-            @Override
-            public void focusLost(FocusEvent e) {
-                socialSecurityNumber=nameText.getText();
-            }
-        });
-        panel.add(geographicText);
 
         JLabel internetLabel = new JLabel("Internet Protocol Addresses:");
         internetLabel.setBounds(10,140,120,25);
@@ -234,13 +216,27 @@ public class SwingLoginExample {
             }
         });
 
-        JButton loginButton = new JButton("login");
-        loginButton.setBounds(10, 260, 130, 25);
-        loginButton.addActionListener(l->{
-
+        JButton saveButton = new JButton("save");
+        saveButton.setBounds(10, 260, 130, 25);
+        saveButton.addActionListener(l->{
+            nameText.setText("");
+            emailText.setText("");
+            internetText.setText("");
+            birthText.setText("");
+            geographicText.setText("");
         });
-        panel.add(loginButton);
+        panel.add(saveButton);
 
+        JButton showButton = new JButton("show");
+        showButton.setBounds(150, 260, 130, 25);
+        showButton.addActionListener(l->{
+            emailText.setText(emailAddresses);
+            nameText.setText(name);
+            internetText.setText(internetProtocolAddresses);
+            birthText.setText(dateOfBirth);
+            geographicText.setText(geographicData);
+        });
+        panel.add(showButton);
     }
 }
 
