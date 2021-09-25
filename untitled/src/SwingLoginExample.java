@@ -58,37 +58,32 @@ public class SwingLoginExample {
         panel.setLayout(null);
 
         JLabel emailLabel = new JLabel("Email:");
-        emailLabel.setBounds(10,20,80,25);
+        emailLabel.setBounds(10, 20, 80, 25);
         panel.add(emailLabel);
 
         JTextField emailText = new JTextField(20);
-        emailText.setBounds(200,20,165,25);
-        emailText.addFocusListener(new FocusListener() {
-            @Override
-            public void focusGained(FocusEvent e) {
-
-            }
-
+        emailText.setBounds(200, 20, 165, 25);
+        emailText.addFocusListener(new FocusAdapter() {
             @Override
             public void focusLost(FocusEvent e) {
 
-                if(initFlag){
+                if (initFlag) {
                     initFlag = false;
                     return;
                 }
-                String check="\\w[-\\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\\.)+[A-Za-z]{2,14}";
+                String check = "\\w[-\\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\\.)+[A-Za-z]{2,14}";
                 Pattern re = Pattern.compile(check);
-                String email=emailText.getText();
-                Matcher matcher=re.matcher(email);
-                boolean isMatch= matcher.matches();
-                if (!isMatch){
-                    JOptionPane.showMessageDialog(panel,"???");
-                }
-                else{
-                   emailAddresses=emailText.getText();
+                String email = emailText.getText();
+                Matcher matcher = re.matcher(email);
+                boolean isMatch = matcher.matches();
+                if (!isMatch) {
+                    JOptionPane.showMessageDialog(panel, "???");
+                } else {
+                    emailAddresses = emailText.getText();
                 }
             }
         });
+
         panel.add(emailText);
 
         JLabel nameLabel = new JLabel("Name:");
