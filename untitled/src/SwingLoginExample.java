@@ -113,8 +113,8 @@ public class SwingLoginExample {
         });
         panel.add(nameText);
 
-        JLabel birthday = new JLabel("Date of Birthday:");
-        birthday.setBounds(10,80,130,25);
+        JLabel birthday = new JLabel("Birthday(layout:yy-mm-dd):");
+        birthday.setBounds(10,80,160,25);
         panel.add(birthday);
 
 
