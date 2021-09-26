@@ -23,8 +23,8 @@ public class SwingLoginExample {
     private static String name;
     private static String dateOfBirth;
     private static String geographicData;
-    private static int telephone;
-    private static String faxNumber;
+    private static long telephone;
+    private static long faxNumber;
     private static String emailAddresses;
     private static String socialSecurityNumber;
     private static long medicalRecordNumber;
@@ -201,13 +201,88 @@ public class SwingLoginExample {
         });
         panel.add(internetText);
 
+        JLabel faxLabel = new JLabel("FAX number:");
+        faxLabel.setBounds(10,170,120,25);
+        panel.add(faxLabel);
+
+
+        JTextField faxText = new JTextField(20);
+        faxText.setBounds(200,170,165,25);
+        faxText.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                String check_fax="^([0-9]{8})$";
+                Pattern re_fax=Pattern.compile(check_fax);
+                String fax=faxText.getText();
+                Matcher matcher=re_fax.matcher(fax);
+                boolean isMatch= matcher.matches();
+                long r = 0;
+                if (!isMatch){
+                    JOptionPane.showMessageDialog(panel,"???");
+                }
+                else {
+                      if ( null != fax) {
+                            r = Long.parseLong(fax);
+                      }
+                      else{
+                          JOptionPane.showMessageDialog(panel,"???");
+                      }
+                        faxNumber = r;
+                }
+            }
+        });
+        panel.add(faxText);
+
+
+        JLabel teleLabel = new JLabel("telephone number:");
+        teleLabel.setBounds(10,200,120,25);
+        panel.add(teleLabel);
+
+
+        JTextField teleText = new JTextField(20);
+        teleText.setBounds(200,200,165,25);
+        teleText.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                String check_tele="^([4-6][0-9]{9})$";
+                Pattern re_tele=Pattern.compile(check_tele);
+                String tele=teleText.getText();
+                Matcher matcher=re_tele.matcher(tele);
+                boolean isMatch= matcher.matches();
+                long r = 0;
+                if (!isMatch){
+                    JOptionPane.showMessageDialog(panel,"???");
+                }
+                else {
+                    if ( null != tele) {
+                        r = Long.parseLong(tele);
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(panel,"???");
+                    }
+                    telephone = r;
+                }
+            }
+        });
+        panel.add(teleText);
+
 
         picLabel= new JLabel();
-        picLabel.setBounds(200,170,180,180);
+        picLabel.setBounds(200,230,180,180);
         panel.add(picLabel);
 
         JButton imagesButton = new JButton("personal images");
-        imagesButton.setBounds(10,170,120,25);
+        imagesButton.setBounds(10,230,120,25);
         imagesButton.addActionListener(l->{
             JFileChooser jf=new JFileChooser();
             jf.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -219,11 +294,11 @@ public class SwingLoginExample {
         panel.add(imagesButton);
 
         identifierLabel= new JLabel();
-        identifierLabel.setBounds(20,390,180,180);
+        identifierLabel.setBounds(20,450,180,180);
         panel.add(identifierLabel);
 
         JButton identifiersButton = new JButton("Biometric identifiers (i.e. retinal scan, fingerprints)");
-        identifiersButton.setBounds(10,370,420,25);
+        identifiersButton.setBounds(10,430,420,25);
         identifiersButton.addActionListener(l->{
             JFileChooser jf=new JFileChooser();
             jf.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -247,24 +322,28 @@ public class SwingLoginExample {
 //        });
 
         JButton saveButton = new JButton("save");
-        saveButton.setBounds(10, 570, 130, 25);
+        saveButton.setBounds(10, 630, 130, 25);
         saveButton.addActionListener(l->{
             nameText.setText("");
             emailText.setText("");
             internetText.setText("");
             birthText.setText("");
             geographicText.setText("");
+            teleText.setText("");
+            faxText.setText("");
         });
         panel.add(saveButton);
 
         JButton showButton = new JButton("show");
-        showButton.setBounds(150, 570, 130, 25);
+        showButton.setBounds(150, 630, 130, 25);
         showButton.addActionListener(l->{
             emailText.setText(emailAddresses);
             nameText.setText(name);
             internetText.setText(internetProtocolAddresses);
             birthText.setText(dateOfBirth);
             geographicText.setText(geographicData);
+            teleText.setText(String.valueOf(telephone));
+            faxText.setText(String.valueOf(faxNumber));
         });
         panel.add(showButton);
     }
