@@ -26,7 +26,7 @@ public class SwingLoginExample {
     private static long telephone;
     private static long faxNumber;
     private static String emailAddresses;
-    private static String socialSecurityNumber;
+    private static long socialSecurityNumber;
     private static long medicalRecordNumber;
     private static String healthPlanBeneficiaryNumber;
     private static long bankAccountNumbers;
@@ -43,7 +43,7 @@ public class SwingLoginExample {
     public static void main(String[] args) {
         JFrame frame = new JFrame("personal files");
 
-        frame.setSize(550, 400);
+        frame.setSize(850, 1000);
 
         JPanel panel = new JPanel();
 
@@ -276,6 +276,82 @@ public class SwingLoginExample {
         });
         panel.add(teleText);
 
+        JLabel socialLabel = new JLabel("social security number:");
+        socialLabel.setBounds(410,20,160,25);
+        panel.add(socialLabel);
+
+
+        JTextField socialText = new JTextField(20);
+        socialText.setBounds(600,20,165,25);
+        socialText.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                String check_social="^([0-9]{9})$";
+                Pattern re_social=Pattern.compile(check_social);
+                String social=socialText.getText();
+                Matcher matcher=re_social.matcher(social);
+                boolean isMatch= matcher.matches();
+                long r = 0;
+                if (!isMatch){
+                    JOptionPane.showMessageDialog(panel,"???");
+                }
+                else {
+                    if ( null != social) {
+                        r = Long.parseLong(social);
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(panel,"???");
+                    }
+                    socialSecurityNumber = r;
+                }
+            }
+        });
+        panel.add(socialText);
+
+        JLabel medicalLabel = new JLabel("medical record number:");
+        medicalLabel.setBounds(410,50,160,25);
+        panel.add(medicalLabel);
+
+
+        JTextField medicalText = new JTextField(20);
+        medicalText.setBounds(600,50,165,25);
+        medicalText.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                String check_medical="^([0-9]{9})$";
+                Pattern re_medical=Pattern.compile(check_medical);
+                String medical=socialText.getText();
+                Matcher matcher=re_medical.matcher(medical);
+                boolean isMatch= matcher.matches();
+                long r = 0;
+                if (!isMatch){
+                    JOptionPane.showMessageDialog(panel,"???");
+                }
+                else {
+                    if ( null != medical) {
+                        r = Long.parseLong(medical);
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(panel,"???");
+                    }
+                    medicalRecordNumber = r;
+                }
+            }
+        });
+        panel.add(medicalText);
+
+
+
 
         picLabel= new JLabel();
         picLabel.setBounds(200,230,180,180);
@@ -309,17 +385,6 @@ public class SwingLoginExample {
         });
         panel.add(identifiersButton);
 
-//        picLabel.addMouseListener(new MouseAdapter() {
-//            @Override
-//            public void mouseClicked(MouseEvent e) {
-//                JFileChooser jf=new JFileChooser();
-//                jf.setFileSelectionMode(JFileChooser.FILES_ONLY);
-//                jf.showDialog(new JLabel(),"选择");
-//                File file=jf.getSelectedFile();
-//                picLabel.setIcon(new ImageIcon(file.getAbsolutePath()));
-//                panel.add(picLabel);
-//            }
-//        });
 
         JButton saveButton = new JButton("save");
         saveButton.setBounds(10, 630, 130, 25);
@@ -331,6 +396,8 @@ public class SwingLoginExample {
             geographicText.setText("");
             teleText.setText("");
             faxText.setText("");
+            medicalText.setText("");
+            socialText.setText("");
         });
         panel.add(saveButton);
 
@@ -344,10 +411,9 @@ public class SwingLoginExample {
             geographicText.setText(geographicData);
             teleText.setText(String.valueOf(telephone));
             faxText.setText(String.valueOf(faxNumber));
+            medicalText.setText(String.valueOf(medicalRecordNumber));
+            socialText.setText(String.valueOf(socialSecurityNumber));
         });
         panel.add(showButton);
     }
 }
-
-
-
