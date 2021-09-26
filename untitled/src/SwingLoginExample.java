@@ -31,11 +31,11 @@ public class SwingLoginExample {
     private static String healthPlanBeneficiaryNumber;
     private static long bankAccountNumbers;
     private static String licenseNumber;
-    private static String vehicleIdentifiersAndSerialNumbersIncludingLicensePlates;
+    private static long vehicleIdentifiersAndSerialNumbersIncludingLicensePlates;
     private static String deviceIdentifiersAndSerialNumbers;
     private static String LinkedIn;
     private static String internetProtocolAddresses;
-    private static String anyUniqueIdentifyingNumberCharacteristicOrCode;
+    private static long nuID;
     private static  JLabel picLabel;
     private static  JLabel identifierLabel;
     private static boolean initFlag = true;
@@ -351,6 +351,111 @@ public class SwingLoginExample {
         panel.add(medicalText);
 
 
+        JLabel nuLabel = new JLabel("NUID:");
+        nuLabel.setBounds(410,80,160,25);
+        panel.add(nuLabel);
+
+
+        JTextField nuText = new JTextField(20);
+        nuText.setBounds(600,80,165,25);
+        nuText.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                String check_nu="^([0-9]{9})$";
+                Pattern re_nu=Pattern.compile(check_nu);
+                String nu=nuText.getText();
+                Matcher matcher=re_nu.matcher(nu);
+                boolean isMatch= matcher.matches();
+                long r = 0;
+                if (!isMatch){
+                    JOptionPane.showMessageDialog(panel,"???");
+                }
+                else {
+                    if ( null != nu) {
+                        r = Long.parseLong(nu);
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(panel,"???");
+                    }
+                    nuID = r;
+                }
+            }
+        });
+        panel.add(nuText);
+
+
+        JLabel carLabel = new JLabel("Vehicle license plates:");
+        carLabel.setBounds(410,110,160,25);
+        panel.add(carLabel);
+
+
+        JTextField carText = new JTextField(20);
+        carText.setBounds(600,110,165,25);
+        carText.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                String check_car="^[A-Z]{1,3}-[A-Z]{1,2}-[0-9]{1,4}$";
+                Pattern re_car=Pattern.compile(check_car);
+                String car=carText.getText();
+                Matcher matcher=re_car.matcher(nu);
+                boolean isMatch= matcher.matches();
+                long r = 0;
+                if (!isMatch){
+                    JOptionPane.showMessageDialog(panel,"???");
+                }
+                else {
+                    if ( null != car) {
+                        r = Long.parseLong(car);
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(panel,"???");
+                    }
+                    vehicleIdentifiersAndSerialNumbersIncludingLicensePlates = r;
+                }
+            }
+        });
+        panel.add(carText);
+
+        JLabel linLabel = new JLabel("Name:");
+        linLabel.setBounds(10,80,80,25);
+        panel.add(linLabel);
+
+
+        JTextField linText = new JTextField(20);
+        linText.setBounds(200,80,165,25);
+        linText.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                String check_lin="^[a-zA-Z]+\\s?[\\.·\\-()a-zA-Z]*[a-zA-Z]+$";
+                Pattern re_lin=Pattern.compile(check_lin);
+                String name_lin=linText.getText();
+                Matcher matcher=re_lin.matcher(name_lin);
+                boolean isMatch= matcher.matches();
+                if (!isMatch){
+                    JOptionPane.showMessageDialog(panel,"???");
+                }
+                else {
+                    LinkedIn = name_lin;
+                }
+            }
+        });
+        panel.add(linText);
+
 
 
         picLabel= new JLabel();
@@ -398,6 +503,9 @@ public class SwingLoginExample {
             faxText.setText("");
             medicalText.setText("");
             socialText.setText("");
+            nuLabel.setText("");
+            carLabel.setText("");
+            linLabel.setText("");
         });
         panel.add(saveButton);
 
@@ -413,6 +521,9 @@ public class SwingLoginExample {
             faxText.setText(String.valueOf(faxNumber));
             medicalText.setText(String.valueOf(medicalRecordNumber));
             socialText.setText(String.valueOf(socialSecurityNumber));
+            nuLabel.setText(String.valueOf(nuID));
+            carLabel.setText(String.valueOf(vehicleIdentifiersAndSerialNumbersIncludingLicensePlates));
+            linLabel.setText(LinkedIn);
         });
         panel.add(showButton);
     }
