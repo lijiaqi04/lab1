@@ -28,11 +28,9 @@ public class SwingLoginExample {
     private static String emailAddresses;
     private static long socialSecurityNumber;
     private static long medicalRecordNumber;
-    private static String healthPlanBeneficiaryNumber;
     private static long bankAccountNumbers;
-    private static String licenseNumber;
+    private static long licenseNumber;
     private static long vehicleIdentifiersAndSerialNumbersIncludingLicensePlates;
-    private static String deviceIdentifiersAndSerialNumbers;
     private static String LinkedIn;
     private static String internetProtocolAddresses;
     private static long nuID;
@@ -426,6 +424,43 @@ public class SwingLoginExample {
         });
         panel.add(bankText);
 
+        JLabel licenseLabel = new JLabel("license numberr:");
+        licenseLabel.setBounds(410,170,120,25);
+        panel.add(licenseLabel);
+
+
+        JTextField licenseText = new JTextField(20);
+        licenseText.setBounds(600,170,165,25);
+        licenseText.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                String check_license="^([0-9]{10})$";
+                Pattern re_license=Pattern.compile(check_license);
+                String license=licenseText.getText();
+                Matcher matcher=re_license.matcher(bank);
+                boolean isMatch= matcher.matches();
+                long r = 0;
+                if (!isMatch){
+                    JOptionPane.showMessageDialog(panel,"???");
+                }
+                else {
+                    if ( null != license) {
+                        r = Long.parseLong(bank);
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(panel,"???");
+                    }
+                    licenseNumber = r;
+                }
+            }
+        });
+        panel.add(licenseText);
+
 
         JLabel carLabel = new JLabel("Vehicle license plates:");
         carLabel.setBounds(410,110,160,25);
@@ -545,6 +580,7 @@ public class SwingLoginExample {
             carLabel.setText("");
             linLabel.setText("");
             bankLabel.setText("");
+            licenseLabel.setText("");
         });
         panel.add(saveButton);
 
@@ -564,6 +600,7 @@ public class SwingLoginExample {
             carLabel.setText(String.valueOf(vehicleIdentifiersAndSerialNumbersIncludingLicensePlates));
             linLabel.setText(LinkedIn);
             bankLabel.setText(String.valueOf(bankAccountNumbers));
+            licenseLabel.setText(String.valueOf(licenseNumber));
         });
         panel.add(showButton);
     }
