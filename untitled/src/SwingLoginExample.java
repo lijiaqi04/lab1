@@ -404,7 +404,7 @@ public class SwingLoginExample {
 
             @Override
             public void focusLost(FocusEvent e) {
-                String check_bank="^([0-9]{8})$";
+                String check_bank="^([0-9]{10})$";
                 Pattern re_bank=Pattern.compile(check_bank);
                 String bank=bankText.getText();
                 Matcher matcher=re_bank.matcher(bank);
