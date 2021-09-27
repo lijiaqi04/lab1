@@ -389,13 +389,13 @@ public class SwingLoginExample {
         panel.add(nuText);
 
 
-        JLabel bankLabel = new JLabel("FAX number:");
-        bankLabel.setBounds(10,110,120,25);
+        JLabel bankLabel = new JLabel("bank account number:");
+        bankLabel.setBounds(410,140,120,25);
         panel.add(bankLabel);
 
 
         JTextField bankText = new JTextField(20);
-        bankText.setBounds(200,110,165,25);
+        bankText.setBounds(600,140,165,25);
         bankText.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
@@ -445,7 +445,7 @@ public class SwingLoginExample {
                 String check_car="^[A-Z]{1,3}-[A-Z]{1,2}-[0-9]{1,4}$";
                 Pattern re_car=Pattern.compile(check_car);
                 String car=carText.getText();
-                Matcher matcher=re_car.matcher(nu);
+                Matcher matcher=re_car.matcher(car);
                 boolean isMatch= matcher.matches();
                 long r = 0;
                 if (!isMatch){
@@ -464,7 +464,7 @@ public class SwingLoginExample {
         });
         panel.add(carText);
 
-        JLabel linLabel = new JLabel("Name:");
+        JLabel linLabel = new JLabel("LinkedIn:");
         linLabel.setBounds(10,80,80,25);
         panel.add(linLabel);
 
