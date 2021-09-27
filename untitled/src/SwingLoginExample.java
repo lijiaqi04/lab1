@@ -389,6 +389,44 @@ public class SwingLoginExample {
         panel.add(nuText);
 
 
+        JLabel bankLabel = new JLabel("FAX number:");
+        bankLabel.setBounds(10,110,120,25);
+        panel.add(bankLabel);
+
+
+        JTextField bankText = new JTextField(20);
+        bankText.setBounds(200,110,165,25);
+        bankText.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                String check_bank="^([0-9]{8})$";
+                Pattern re_bank=Pattern.compile(check_bank);
+                String bank=bankText.getText();
+                Matcher matcher=re_bank.matcher(bank);
+                boolean isMatch= matcher.matches();
+                long r = 0;
+                if (!isMatch){
+                    JOptionPane.showMessageDialog(panel,"???");
+                }
+                else {
+                    if ( null != bank) {
+                        r = Long.parseLong(bank);
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(panel,"???");
+                    }
+                    bankAccountNumbers = r;
+                }
+            }
+        });
+        panel.add(bankText);
+
+
         JLabel carLabel = new JLabel("Vehicle license plates:");
         carLabel.setBounds(410,110,160,25);
         panel.add(carLabel);
