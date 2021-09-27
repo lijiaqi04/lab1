@@ -544,6 +544,7 @@ public class SwingLoginExample {
             nuLabel.setText("");
             carLabel.setText("");
             linLabel.setText("");
+            bankLabel.setText("");
         });
         panel.add(saveButton);
 
@@ -562,6 +563,7 @@ public class SwingLoginExample {
             nuLabel.setText(String.valueOf(nuID));
             carLabel.setText(String.valueOf(vehicleIdentifiersAndSerialNumbersIncludingLicensePlates));
             linLabel.setText(LinkedIn);
+            bankLabel.setText(String.valueOf(bankAccountNumbers));
         });
         panel.add(showButton);
     }
